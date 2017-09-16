@@ -1,0 +1,4 @@
+<resources>
+  <string name="app_name">ToDoList</string>
+  <string name="title_activity_one_task">OneTask</string>
+</resources>
