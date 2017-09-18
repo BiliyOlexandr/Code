@@ -11,7 +11,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class ChangeTaskActivity extends AppCompatActivity {
@@ -30,9 +29,13 @@ public class ChangeTaskActivity extends AppCompatActivity {
 
     final Button okButton = (Button) findViewById(R.id.change_ok_button);
     final Button cencelButton = (Button) findViewById(R.id.change_cencel_button);
+    textName = (EditText) findViewById(R.id.change_name_text);
+    textDiscription = (EditText) findViewById(R.id.change_discription_text);
+
     //Получение позиции задачи из интента
     taskNo = (Integer) getIntent().getExtras().get(CHANGE_EXTRA_TASKNO);
     try {
+      // TODO TODO 1
       SQLiteOpenHelper todolistDataBaseHelper = new ToDoListDataBaseHelper(this);
       db = todolistDataBaseHelper.getWritableDatabase();
       Cursor cursor = db.query("TASK", new String[] { "NAME", "DISCRIPTION" }, "_id = ?",
@@ -41,13 +44,11 @@ public class ChangeTaskActivity extends AppCompatActivity {
       if (cursor.moveToFirst()) {
         //Получение данных задачи из курсора
         String nameText = cursor.getString(0);
-        String discriptionText = cursor.getString(1);
+        String discriptionText = cursor.getString(1);  // TODO Grammar
         //Заполнение названия задачи
-        TextView name = (TextView) findViewById(R.id.change_name_text);
-        name.setText(nameText);
+        textName.setText(nameText);
         //Заполнение описания задачи
-        TextView discription = (TextView) findViewById(R.id.change_discription_text);
-        discription.setText(discriptionText);
+        textDiscription.setText(discriptionText);
       }
     } catch (SQLException ex) {
       Toast toast = Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT);
@@ -57,10 +58,9 @@ public class ChangeTaskActivity extends AppCompatActivity {
     okButton.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View view) {
         Intent intent = new Intent(ChangeTaskActivity.this, MainActivity.class);
+        // TODO TODO 1
         toDoListDataBaseHelper = new ToDoListDataBaseHelper(ChangeTaskActivity.this);
         db = toDoListDataBaseHelper.getWritableDatabase();
-        textName = (EditText) findViewById(R.id.change_name_text);
-        textDiscription = (EditText) findViewById(R.id.change_discription_text);
         //Код изминения полей БД при изменении полей EditText
         ContentValues taskValues = new ContentValues();
         taskValues.put("NAME", textName.getText().toString());

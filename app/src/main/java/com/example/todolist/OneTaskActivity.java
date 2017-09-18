@@ -10,8 +10,10 @@ import android.widget.EditText;
 
 public class OneTaskActivity extends AppCompatActivity {
   //Позиция задачи в списке
+  // TODO Remove all non-used variables
   public static final String EXTRA_TASKNO = "taskNo";
 
+  // TODO Setup access modifiers for all global fields
   SQLiteDatabase db;
   EditText textName;
   EditText textDiscription;
@@ -28,6 +30,7 @@ public class OneTaskActivity extends AppCompatActivity {
     okButton.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View view) {
         Intent intent = new Intent(OneTaskActivity.this, MainActivity.class);
+        // TODO TODO 1
         toDoListDataBaseHelper = new ToDoListDataBaseHelper(OneTaskActivity.this);
         db = toDoListDataBaseHelper.getWritableDatabase();
         toDoListDataBaseHelper.insertTask(db, textName.getText().toString(),

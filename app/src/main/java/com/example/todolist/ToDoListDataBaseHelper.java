@@ -29,7 +29,7 @@ public class ToDoListDataBaseHelper extends SQLiteOpenHelper {
   }
   private void updateMyDatabase(SQLiteDatabase db, int oldVersion, int newVersion) {
       db.execSQL("CREATE TABLE TASK (_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-          + "NAME TEXT, "
+          + "NAME TEXT, " // TODO Replace all literals with static constants that may be accessible from another classes
           + "DISCRIPTION TEXT);");
   }
 

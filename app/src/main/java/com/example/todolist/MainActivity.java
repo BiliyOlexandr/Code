@@ -19,7 +19,8 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-  FloatingActionButton fab;
+  private FloatingActionButton fab;
+  // TODO Replace all comments on english (translate in eng)
   //Эти приватные переменные добавляются для того,
   //чтобы базу данных и курсор можно было закрыть в методе onDestroy().
   private SQLiteDatabase db;
@@ -72,11 +73,13 @@ public class MainActivity extends AppCompatActivity {
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
           @Override public void onClick(DialogInterface dialogInterface, int i) {
             Toast.makeText(MainActivity.this, "Note was deleted", Toast.LENGTH_LONG).show();
+            // TODO 1 Organize correct db management
             toDoListDataBaseHelper = new ToDoListDataBaseHelper(MainActivity.this);
             db = toDoListDataBaseHelper.getWritableDatabase();
             //Код удаления полей БД
             db.delete("TASK", "_id = ?", new String[] { Integer.toString(taskPosition) });
             //Перезапускаем активность
+            // TODO replace next 6 lines of code with 1 line - "listAdapter.notifyDataSetChanged()"
             Intent intent = getIntent();
             overridePendingTransition(0, 0);//4
             intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);//5
