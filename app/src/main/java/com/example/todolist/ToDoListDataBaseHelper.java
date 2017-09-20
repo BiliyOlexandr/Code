@@ -19,17 +19,16 @@ class ToDoListDataBaseHelper extends SQLiteOpenHelper {
   }
 
   @Override public void onCreate(SQLiteDatabase db) {
-    //Код из метода onCreate() выносится в метод updateMyDatabase().
+    //Code from the method onCreate() get out in the method updateMyDatabase().
     updateMyDatabase(db, 0, DB_VERSION);
   }
 
   @Override public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-    //Код из метода onUpgrade() выносится в метод updateMyDatabase().
+    //Code from the method onCreate() get out in the method updateMyDatabase().
     updateMyDatabase(db, oldVersion, newVersion);
   }
   @Override
   public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-    //Здесь размещается ваш код
   }
   private void updateMyDatabase(SQLiteDatabase db, int oldVersion, int newVersion) {
       db.execSQL("CREATE TABLE" + TABLE_NAME + "(_id INTEGER PRIMARY KEY AUTOINCREMENT, "

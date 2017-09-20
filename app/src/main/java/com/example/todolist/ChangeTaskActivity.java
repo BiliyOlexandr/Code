@@ -14,7 +14,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 public class ChangeTaskActivity extends AppCompatActivity {
-  //Позиция задачи в списке
+  // Position the task in list
   public static final String CHANGE_EXTRA_TASKNO = "changetaskNo";
 
   private SQLiteDatabase db;
@@ -32,7 +32,7 @@ public class ChangeTaskActivity extends AppCompatActivity {
     textName = (EditText) findViewById(R.id.change_name_text);
     textDiscription = (EditText) findViewById(R.id.change_discription_text);
 
-    //Получение позиции задачи из интента
+    // Getting position to the task of intent.
     taskNo = (Integer) getIntent().getExtras().get(CHANGE_EXTRA_TASKNO);
     try {
       // TODO TODO 1
@@ -41,14 +41,14 @@ public class ChangeTaskActivity extends AppCompatActivity {
       Cursor cursor = db.query(ToDoListDataBaseHelper.TABLE_NAME,
           new String[] { ToDoListDataBaseHelper.NAME, ToDoListDataBaseHelper.DISCRIPTION },
           "_id = ?", new String[] { Integer.toString(taskNo) }, null, null, null);
-      //Переход к первой записи в курсоре
+      //Get the task data from the cursor.
       if (cursor.moveToFirst()) {
-        //Получение данных задачи из курсора
+        //Getting data to the task of Cursor.
         String nameText = cursor.getString(0);
         String discriptionText = cursor.getString(1);  // TODO Grammar
-        //Заполнение названия задачи
+        //Filling name to the task.
         textName.setText(nameText);
-        //Заполнение описания задачи
+        //Filling description to the task.
         textDiscription.setText(discriptionText);
       }
     } catch (SQLException ex) {
@@ -62,7 +62,7 @@ public class ChangeTaskActivity extends AppCompatActivity {
         // TODO TODO 1
         toDoListDataBaseHelper = new ToDoListDataBaseHelper(ChangeTaskActivity.this);
         db = toDoListDataBaseHelper.getWritableDatabase();
-        //Код изминения полей БД при изменении полей EditText
+        //Code of change of columns to the data base during change EditText.
         ContentValues taskValues = new ContentValues();
         taskValues.put(ToDoListDataBaseHelper.NAME, textName.getText().toString());
         taskValues.put(ToDoListDataBaseHelper.DISCRIPTION, textDiscription.getText().toString());

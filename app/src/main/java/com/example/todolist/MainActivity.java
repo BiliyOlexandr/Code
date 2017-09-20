@@ -18,9 +18,6 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-  // TODO Replace all comments on english (translate in eng)
-  //Эти приватные переменные добавляются для того,
-  //чтобы базу данных и курсор можно было закрыть в методе onDestroy().
   private SQLiteDatabase db;
   private Cursor cursor;
   private AlertDialog.Builder builder;
@@ -34,26 +31,26 @@ public class MainActivity extends AppCompatActivity {
 
     try {
       SQLiteOpenHelper todolistDatabaseHelper = new ToDoListDataBaseHelper(this);
-      //Получить ссылку на базу данных.
+      //Gets link on the data base.
       db = todolistDatabaseHelper.getReadableDatabase();
       cursor = db.query(ToDoListDataBaseHelper.TABLE_NAME, new String[] {
           "_id", ToDoListDataBaseHelper.NAME, ToDoListDataBaseHelper.DISCRIPTION
       }, null, null, null, null, null);
-      //Создать курсор.
+      //Create cursor.
       CursorAdapter listAdapter =
           new SimpleCursorAdapter(this, android.R.layout.simple_list_item_1, cursor,
-              //Связать содержимое столбца NAME с текстом в ListView.
+              // The context of the column NAME with text in ListView.
               new String[] { ToDoListDataBaseHelper.NAME, ToDoListDataBaseHelper.DISCRIPTION },
               new int[] { android.R.id.text1 }, 0);
 
-      //связываем адаптер с курсором.
+      // Connect Adapter with Cursor.
       listTasks.setAdapter(listAdapter);
     } catch (SQLException ex) {
-      Toast toast = Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT);
+      Toast toast = Toast.makeText(this, R.string.dbnavailable, Toast.LENGTH_SHORT);
       toast.show();
     }
 
-    //Cобытие по нажатию на элемент списка, вызываеться активити и передаеться номер элемента
+    // Event of click on the list item, call to Activity and put number of item.
     listTasks.setOnItemClickListener(new OnItemClickListener() {
       public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(MainActivity.this, ChangeTaskActivity.class);
@@ -76,10 +73,10 @@ public class MainActivity extends AppCompatActivity {
             // TODO 1 Organize correct db management
             toDoListDataBaseHelper = new ToDoListDataBaseHelper(MainActivity.this);
             db = toDoListDataBaseHelper.getWritableDatabase();
-            //Код удаления полей БД
+            //Code to delete DB columns
             db.delete(ToDoListDataBaseHelper.TABLE_NAME, "_id = ?",
                 new String[] { Integer.toString(taskPosition) });
-            //Перезапускаем активность
+            // Restart Activity
             // TODO replace next 6 lines of code with 1 line - "listAdapter.notifyDataSetChanged()"
             Intent intent = getIntent();
             overridePendingTransition(0, 0);//4
@@ -101,14 +98,12 @@ public class MainActivity extends AppCompatActivity {
     findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View view) {
         Intent intent = new Intent(MainActivity.this, OneTaskActivity.class);
-        //intent.putExtra(OneTaskActivity.TASK_FLAG, true);
         startActivity(intent);
       }
     });
   }
 
-  //База данных и курсор закрываются в методе onDestroy() активности. Курсор остается открытым
-  // до того момента, когда он перестает быть нужным адаптеру.
+  //Data base and Cursor has closed in method onDestroy() of Activity.
   @Override public void onDestroy() {
     super.onDestroy();
     cursor.close();
