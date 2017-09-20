@@ -17,6 +17,7 @@ public class ChangeTaskActivity extends AppCompatActivity {
   // Position the task in list
   public static final String CHANGE_EXTRA_TASKNO = "changetaskNo";
 
+  private  Cursor cursor;
   private SQLiteDatabase db;
   private EditText textName;
   private EditText textDiscription;
@@ -32,13 +33,14 @@ public class ChangeTaskActivity extends AppCompatActivity {
     textName = (EditText) findViewById(R.id.change_name_text);
     textDiscription = (EditText) findViewById(R.id.change_discription_text);
 
-    // Getting position to the task of intent.
-    taskNo = (Integer) getIntent().getExtras().get(CHANGE_EXTRA_TASKNO);
+
     try {
+      // Getting position to the task of intent.
+      taskNo = (Integer) getIntent().getExtras().get(CHANGE_EXTRA_TASKNO);
       // TODO TODO 1
       SQLiteOpenHelper todolistDataBaseHelper = new ToDoListDataBaseHelper(this);
       db = todolistDataBaseHelper.getWritableDatabase();
-      Cursor cursor = db.query(ToDoListDataBaseHelper.TABLE_NAME,
+      cursor = db.query(ToDoListDataBaseHelper.TABLE_NAME,
           new String[] { ToDoListDataBaseHelper.NAME, ToDoListDataBaseHelper.DISCRIPTION },
           "_id = ?", new String[] { Integer.toString(taskNo) }, null, null, null);
       //Get the task data from the cursor.
@@ -77,7 +79,11 @@ public class ChangeTaskActivity extends AppCompatActivity {
     });
   }
 
-  public void getString() {
-    String textString = getIntent().getStringExtra("textName");
+  //Data base and Cursor has closed in method onDestroy() of Activity.
+  @Override public void onDestroy() {
+    super.onDestroy();
+    cursor.close();
+    db.close();
   }
+
 }

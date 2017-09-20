@@ -60,7 +60,4 @@ public class OneTaskActivity extends AppCompatActivity {
     }
   }
 
-  public void getString() {
-    String textString = getIntent().getStringExtra("textName");
-  }
 }

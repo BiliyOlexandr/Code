@@ -19,21 +19,15 @@ class ToDoListDataBaseHelper extends SQLiteOpenHelper {
   }
 
   @Override public void onCreate(SQLiteDatabase db) {
-    //Code from the method onCreate() get out in the method updateMyDatabase().
-    updateMyDatabase(db, 0, DB_VERSION);
+    db.execSQL("CREATE TABLE" + TABLE_NAME + "(_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+        + NAME + ", "
+        + DISCRIPTION + ");");
   }
 
   @Override public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-    //Code from the method onCreate() get out in the method updateMyDatabase().
-    updateMyDatabase(db, oldVersion, newVersion);
   }
   @Override
   public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-  }
-  private void updateMyDatabase(SQLiteDatabase db, int oldVersion, int newVersion) {
-      db.execSQL("CREATE TABLE" + TABLE_NAME + "(_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-          + NAME + ", "
-          + DISCRIPTION + ");");
   }
 
   static void insertTask(SQLiteDatabase db, String name, String discription) {

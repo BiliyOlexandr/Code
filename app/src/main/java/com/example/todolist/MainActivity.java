@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
   private ToDoListDataBaseHelper toDoListDataBaseHelper;
 
   @Override
-  protected void onCreate(Bundle savedInstanceState) { // TODO FIX ALL WARNINGS (ORANGE LINES)
+  protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     ListView listTasks = (ListView) findViewById(R.id.listView);
