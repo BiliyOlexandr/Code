@@ -38,8 +38,9 @@ public class ChangeTaskActivity extends AppCompatActivity {
       // TODO TODO 1
       SQLiteOpenHelper todolistDataBaseHelper = new ToDoListDataBaseHelper(this);
       db = todolistDataBaseHelper.getWritableDatabase();
-      Cursor cursor = db.query("TASK", new String[] { "NAME", "DISCRIPTION" }, "_id = ?",
-          new String[] { Integer.toString(taskNo) }, null, null, null);
+      Cursor cursor = db.query(ToDoListDataBaseHelper.TABLE_NAME,
+          new String[] { ToDoListDataBaseHelper.NAME, ToDoListDataBaseHelper.DISCRIPTION },
+          "_id = ?", new String[] { Integer.toString(taskNo) }, null, null, null);
       //Переход к первой записи в курсоре
       if (cursor.moveToFirst()) {
         //Получение данных задачи из курсора
@@ -63,9 +64,10 @@ public class ChangeTaskActivity extends AppCompatActivity {
         db = toDoListDataBaseHelper.getWritableDatabase();
         //Код изминения полей БД при изменении полей EditText
         ContentValues taskValues = new ContentValues();
-        taskValues.put("NAME", textName.getText().toString());
-        taskValues.put("DISCRIPTION", textDiscription.getText().toString());
-        db.update("TASK", taskValues, "_id = ?", new String[] { Integer.toString(taskNo) });
+        taskValues.put(ToDoListDataBaseHelper.NAME, textName.getText().toString());
+        taskValues.put(ToDoListDataBaseHelper.DISCRIPTION, textDiscription.getText().toString());
+        db.update(ToDoListDataBaseHelper.TABLE_NAME, taskValues, "_id = ?",
+            new String[] { Integer.toString(taskNo) });
         startActivity(intent);
       }
     });

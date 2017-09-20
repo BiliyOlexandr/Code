@@ -7,7 +7,6 @@ import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -19,7 +18,6 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
-  private FloatingActionButton fab;
   // TODO Replace all comments on english (translate in eng)
   //Эти приватные переменные добавляются для того,
   //чтобы базу данных и курсор можно было закрыть в методе onDestroy().
@@ -28,7 +26,8 @@ public class MainActivity extends AppCompatActivity {
   private AlertDialog.Builder builder;
   private ToDoListDataBaseHelper toDoListDataBaseHelper;
 
-  @Override protected void onCreate(Bundle savedInstanceState) {
+  @Override
+  protected void onCreate(Bundle savedInstanceState) { // TODO FIX ALL WARNINGS (ORANGE LINES)
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
     ListView listTasks = (ListView) findViewById(R.id.listView);
@@ -37,14 +36,15 @@ public class MainActivity extends AppCompatActivity {
       SQLiteOpenHelper todolistDatabaseHelper = new ToDoListDataBaseHelper(this);
       //Получить ссылку на базу данных.
       db = todolistDatabaseHelper.getReadableDatabase();
-      cursor =
-          db.query("TASK", new String[] { "_id", "NAME", "DISCRIPTION" }, null, null, null, null,
-              null);
+      cursor = db.query(ToDoListDataBaseHelper.TABLE_NAME, new String[] {
+          "_id", ToDoListDataBaseHelper.NAME, ToDoListDataBaseHelper.DISCRIPTION
+      }, null, null, null, null, null);
       //Создать курсор.
       CursorAdapter listAdapter =
           new SimpleCursorAdapter(this, android.R.layout.simple_list_item_1, cursor,
               //Связать содержимое столбца NAME с текстом в ListView.
-              new String[] { "NAME", "DISCRIPTION" }, new int[] { android.R.id.text1 }, 0);
+              new String[] { ToDoListDataBaseHelper.NAME, ToDoListDataBaseHelper.DISCRIPTION },
+              new int[] { android.R.id.text1 }, 0);
 
       //связываем адаптер с курсором.
       listTasks.setAdapter(listAdapter);
@@ -77,7 +77,8 @@ public class MainActivity extends AppCompatActivity {
             toDoListDataBaseHelper = new ToDoListDataBaseHelper(MainActivity.this);
             db = toDoListDataBaseHelper.getWritableDatabase();
             //Код удаления полей БД
-            db.delete("TASK", "_id = ?", new String[] { Integer.toString(taskPosition) });
+            db.delete(ToDoListDataBaseHelper.TABLE_NAME, "_id = ?",
+                new String[] { Integer.toString(taskPosition) });
             //Перезапускаем активность
             // TODO replace next 6 lines of code with 1 line - "listAdapter.notifyDataSetChanged()"
             Intent intent = getIntent();
@@ -97,8 +98,7 @@ public class MainActivity extends AppCompatActivity {
       }
     });
 
-    fab = (FloatingActionButton) findViewById(R.id.fab);
-    fab.setOnClickListener(new View.OnClickListener() {
+    findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View view) {
         Intent intent = new Intent(MainActivity.this, OneTaskActivity.class);
         //intent.putExtra(OneTaskActivity.TASK_FLAG, true);

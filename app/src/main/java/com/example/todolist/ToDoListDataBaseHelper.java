@@ -7,6 +7,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 public class ToDoListDataBaseHelper extends SQLiteOpenHelper {
 
+  public static final String TABLE_NAME = "TASK";
+  public static final String NAME = "NAME";
+  public static final String DISCRIPTION = "DISCRIPTION";
+
   private static final String DB_NAME = "newtodolist";
   private static final int DB_VERSION = 1;
 
@@ -28,16 +32,16 @@ public class ToDoListDataBaseHelper extends SQLiteOpenHelper {
     //Здесь размещается ваш код
   }
   private void updateMyDatabase(SQLiteDatabase db, int oldVersion, int newVersion) {
-      db.execSQL("CREATE TABLE TASK (_id INTEGER PRIMARY KEY AUTOINCREMENT, "
-          + "NAME TEXT, " // TODO Replace all literals with static constants that may be accessible from another classes
-          + "DISCRIPTION TEXT);");
+      db.execSQL("CREATE TABLE" + TABLE_NAME + "(_id INTEGER PRIMARY KEY AUTOINCREMENT, "
+          + NAME + ", " // TODO Replace all literals with static constants that may be accessible from another classes
+          + DISCRIPTION + ");");
   }
 
   public static void insertTask(SQLiteDatabase db, String name, String discription) {
     ContentValues taskValues = new ContentValues();
-    taskValues.put("NAME", name);
-    taskValues.put("DISCRIPTION", discription);
-    db.insert("TASK", null, taskValues);
+    taskValues.put(NAME, name);
+    taskValues.put(DISCRIPTION, discription);
+    db.insert(TABLE_NAME, null, taskValues);
   }
 }
 
