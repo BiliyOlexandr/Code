@@ -43,13 +43,10 @@ public class ChangeTaskActivity extends AppCompatActivity {
           "_id = ?", new String[] { Integer.toString(taskNo) }, null, null, null);
       //Get the task data from the cursor.
       if (cursor.moveToFirst()) {
-        //Getting data to the task of Cursor.
-        String nameText = cursor.getString(0);
-        String discriptionText = cursor.getString(1);  // TODO Grammar
         //Filling name to the task.
-        textName.setText(nameText);
+        textName.setText(cursor.getString(0));
         //Filling description to the task.
-        textDiscription.setText(discriptionText);
+        textDiscription.setText(cursor.getString(1));
       }
     } catch (SQLException ex) {
       Toast toast = Toast.makeText(this, R.string.dbnavailable, Toast.LENGTH_SHORT);
