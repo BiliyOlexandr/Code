@@ -1,7 +1,7 @@
 package com.example.todolist;
 
-import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -15,7 +15,6 @@ public class OneTaskActivity extends AppCompatActivity {
   private SQLiteDatabase db;
   private EditText textName;
   private EditText textDiscription;
-  private ToDoListDataBaseHelper toDoListDataBaseHelper;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -31,11 +30,11 @@ public class OneTaskActivity extends AppCompatActivity {
     final Button cencelButton = (Button) findViewById(R.id.cencel_button);
     textName = (EditText) findViewById(R.id.name_text);
     textDiscription = (EditText) findViewById(R.id.discription_text);
+    SQLiteOpenHelper toDoListDataBaseHelper = new ToDoListDataBaseHelper(OneTaskActivity.this);
+    db = toDoListDataBaseHelper.getWritableDatabase();
+
     okButton.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View view) {
-        // TODO TODO 1
-        toDoListDataBaseHelper = new ToDoListDataBaseHelper(OneTaskActivity.this);
-        db = toDoListDataBaseHelper.getWritableDatabase();
         ToDoListDataBaseHelper.insertTask(db, textName.getText().toString(),
             textDiscription.getText().toString());
         finish();
@@ -44,8 +43,7 @@ public class OneTaskActivity extends AppCompatActivity {
 
     cencelButton.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View view) {
-        Intent intent = new Intent(OneTaskActivity.this, MainActivity.class);
-        startActivity(intent);
+        finish();
       }
     });
   }
@@ -59,5 +57,4 @@ public class OneTaskActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
   }
-
 }

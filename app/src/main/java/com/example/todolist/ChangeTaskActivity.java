@@ -1,7 +1,6 @@
 package com.example.todolist;
 
 import android.content.ContentValues;
-import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -17,12 +16,11 @@ public class ChangeTaskActivity extends AppCompatActivity {
   // Position the task in list
   public static final String CHANGE_EXTRA_TASKNO = "changetaskNo";
 
-  private  Cursor cursor;
+  private Cursor cursor;
   private SQLiteDatabase db;
   private EditText textName;
   private EditText textDiscription;
   private int taskNo;
-  private ToDoListDataBaseHelper toDoListDataBaseHelper;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -33,13 +31,12 @@ public class ChangeTaskActivity extends AppCompatActivity {
     textName = (EditText) findViewById(R.id.change_name_text);
     textDiscription = (EditText) findViewById(R.id.change_discription_text);
 
+    SQLiteOpenHelper todolistDataBaseHelper = new ToDoListDataBaseHelper(this);
+    db = todolistDataBaseHelper.getWritableDatabase();
 
     try {
       // Getting position to the task of intent.
       taskNo = (Integer) getIntent().getExtras().get(CHANGE_EXTRA_TASKNO);
-      // TODO TODO 1
-      SQLiteOpenHelper todolistDataBaseHelper = new ToDoListDataBaseHelper(this);
-      db = todolistDataBaseHelper.getWritableDatabase();
       cursor = db.query(ToDoListDataBaseHelper.TABLE_NAME,
           new String[] { ToDoListDataBaseHelper.NAME, ToDoListDataBaseHelper.DISCRIPTION },
           "_id = ?", new String[] { Integer.toString(taskNo) }, null, null, null);
@@ -57,24 +54,19 @@ public class ChangeTaskActivity extends AppCompatActivity {
 
     okButton.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View view) {
-        Intent intent = new Intent(ChangeTaskActivity.this, MainActivity.class);
-        // TODO TODO 1
-        toDoListDataBaseHelper = new ToDoListDataBaseHelper(ChangeTaskActivity.this);
-        db = toDoListDataBaseHelper.getWritableDatabase();
         //Code of change of columns to the data base during change EditText.
         ContentValues taskValues = new ContentValues();
         taskValues.put(ToDoListDataBaseHelper.NAME, textName.getText().toString());
         taskValues.put(ToDoListDataBaseHelper.DISCRIPTION, textDiscription.getText().toString());
         db.update(ToDoListDataBaseHelper.TABLE_NAME, taskValues, "_id = ?",
             new String[] { Integer.toString(taskNo) });
-        startActivity(intent);
+        finish();
       }
     });
 
     cencelButton.setOnClickListener(new View.OnClickListener() {
       @Override public void onClick(View view) {
-        Intent intent = new Intent(ChangeTaskActivity.this, MainActivity.class);
-        startActivity(intent);
+        finish();
       }
     });
   }
@@ -85,5 +77,4 @@ public class ChangeTaskActivity extends AppCompatActivity {
     cursor.close();
     db.close();
   }
-
 }
