@@ -11,9 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 
 public class OneTaskActivity extends AppCompatActivity {
-  //Позиция задачи в списке
-  // TODO Remove all non-used variables
-  public static final String EXTRA_TASKNO = "taskNo";
 
   // TODO Setup access modifiers for all global fields
   SQLiteDatabase db;
