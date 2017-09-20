@@ -12,11 +12,10 @@ import android.widget.EditText;
 
 public class OneTaskActivity extends AppCompatActivity {
 
-  // TODO Setup access modifiers for all global fields
-  SQLiteDatabase db;
-  EditText textName;
-  EditText textDiscription;
-  ToDoListDataBaseHelper toDoListDataBaseHelper;
+  private SQLiteDatabase db;
+  private EditText textName;
+  private EditText textDiscription;
+  private ToDoListDataBaseHelper toDoListDataBaseHelper;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
