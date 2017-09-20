@@ -1,4 +1,11 @@
 <resources>
   <string name="app_name">ToDoList</string>
   <string name="title_activity_one_task">OneTask</string>
+  <string name="intput_name">Intput name</string>
+  <string name="intput_discription">Intput discription</string>
+  <string name="ok">OK</string>
+  <string name="cencel">CENCEL</string>
+  <string name="delete">Delete</string>
+  <string name="was_deleted">This note was delete</string>
+  <string name="dbnavailable">Database unavailable</string>
 </resources>

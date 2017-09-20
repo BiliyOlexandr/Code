@@ -52,7 +52,7 @@ public class ChangeTaskActivity extends AppCompatActivity {
         textDiscription.setText(discriptionText);
       }
     } catch (SQLException ex) {
-      Toast toast = Toast.makeText(this, "Database unavailable", Toast.LENGTH_SHORT);
+      Toast toast = Toast.makeText(this, R.string.dbnavailable, Toast.LENGTH_SHORT);
       toast.show();
     }
 

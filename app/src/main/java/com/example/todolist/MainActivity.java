@@ -68,11 +68,11 @@ public class MainActivity extends AppCompatActivity {
           long id) {
         final int taskPosition = (int) id;
         builder = new AlertDialog.Builder(MainActivity.this);
-        builder.setTitle("Delete");
-        builder.setMessage("This note was delete");
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        builder.setTitle(R.string.delete);
+        builder.setMessage(R.string.was_deleted);
+        builder.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
           @Override public void onClick(DialogInterface dialogInterface, int i) {
-            Toast.makeText(MainActivity.this, "Note was deleted", Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, R.string.was_deleted, Toast.LENGTH_LONG).show();
             // TODO 1 Organize correct db management
             toDoListDataBaseHelper = new ToDoListDataBaseHelper(MainActivity.this);
             db = toDoListDataBaseHelper.getWritableDatabase();
@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);//8
           }
         });
-        builder.setNegativeButton("CENCEL", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(R.string.cencel, new DialogInterface.OnClickListener() {
           @Override public void onClick(DialogInterface dialogInterface, int i) {
           }
         });
