@@ -26,7 +26,7 @@ class ToDoListDataBaseHelper extends SQLiteOpenHelper {
   }
 
   @Override public void onCreate(SQLiteDatabase db) {
-    db.execSQL("CREATE TABLE"
+    db.execSQL("CREATE TABLE "
         + TABLE_NAME
         + "(_id INTEGER PRIMARY KEY AUTOINCREMENT, "
         + NAME
@@ -36,9 +36,8 @@ class ToDoListDataBaseHelper extends SQLiteOpenHelper {
   }
 
   @Override public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-  }
-
-  @Override public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+    db.execSQL("drop table if exists " + TABLE_NAME);
+    onCreate(db);
   }
 }
 
