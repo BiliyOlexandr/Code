@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
   private MyAdapter myAdapter;
   private List<Task> taskList;
   private Intent intent;
+  private  RecyclerView recyclerView;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -32,8 +33,6 @@ public class MainActivity extends AppCompatActivity {
     taskList = new ArrayList<>();
 
     todolistDatabaseHelper = new ToDoListDataBaseHelper(this);
-
-    getTasks();
 
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -54,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         })
         .setNegativeButton(R.string.cencel, null)
         .show());
+
     recyclerView.setAdapter(myAdapter);
 
     findViewById(R.id.new_fab).setOnClickListener(view -> {
@@ -78,10 +78,11 @@ public class MainActivity extends AppCompatActivity {
     if (myAdapter != null) {
       myAdapter.notifyDataSetChanged();
     }
+
   }
 
-  @Override protected void onRestart() {
-    super.onRestart();
+  @Override protected void onStart() {
+    super.onStart();
     getTasks();
   }
 
