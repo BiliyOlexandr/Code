@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-  // Position the task in list
+  // Position the task in list, add new pc to same repository (To do list)
   public static final String CHANGE_EXTRA_TASKNO = "changetaskNo";
 
   private SQLiteOpenHelper todolistDatabaseHelper;
