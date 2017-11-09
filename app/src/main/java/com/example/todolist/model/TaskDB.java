@@ -7,9 +7,6 @@ import android.arch.persistence.room.PrimaryKey;
 
 
 //https://habrahabr.ru/post/332562/
-//https://habrahabr.ru/post/332562/
-//https://habrahabr.ru/post/332562/
-
 @Entity(tableName = "task")
 public class TaskDB {
   @PrimaryKey
@@ -18,7 +15,5 @@ public class TaskDB {
   private String name;
   @ColumnInfo(name =   "description")
   private  String description;
-  @ColumnInfo (name = "rate")
-  private String rate;
 
 }
