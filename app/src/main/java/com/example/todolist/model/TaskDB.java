@@ -7,6 +7,7 @@ import android.arch.persistence.room.PrimaryKey;
 
 
 //https://habrahabr.ru/post/332562/
+//https://habrahabr.ru/post/332562/
 @Entity(tableName = "task")
 public class TaskDB {
   @PrimaryKey
