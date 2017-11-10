@@ -1,5 +1,6 @@
 package com.example.todolist;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -10,10 +11,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.widget.Toast;
+
+import com.example.todolist.AndroidArchitectureCompinents.TaskListViewModel;
+import com.example.todolist.model.Task;
+import com.example.todolist.model.TaskDB;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity   {
   // Position the task in list, add new pc to same repository (To do list)
   public static final String CHANGE_EXTRA_TASKNO = "changetaskNo";
 
@@ -22,12 +28,25 @@ public class MainActivity extends AppCompatActivity {
   private Cursor cursor;
   private MyAdapter myAdapter;
   private List<Task> taskList;
+  private List<TaskDB> mTaskDB;
   private Intent intent;
   private  RecyclerView recyclerView;
+  TaskListViewModel mModel;
+
+  public MainActivity() {
+  }
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.new_activity_main);
+
+    mModel = ViewModelProviders.of(this).get(TaskListViewModel.class);
+    mModel.getTasks().observe(this, users ->{
+      myAdapter.clear();
+      myAdapter.addAll(users);
+      myAdapter.notifyDataSetChanged();
+      // update UI
+    });
 
     RecyclerView recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
     taskList = new ArrayList<>();
@@ -36,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
     recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-    myAdapter = new MyAdapter(taskList, username -> {
+    myAdapter = new MyAdapter(mTaskDB, username -> {
 
       intent = new Intent(this, ChangeTaskActivity.class);
       intent.putExtra(CHANGE_EXTRA_TASKNO, username);

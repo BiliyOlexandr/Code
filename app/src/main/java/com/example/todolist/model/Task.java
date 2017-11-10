@@ -1,10 +1,10 @@
-package com.example.todolist;
+package com.example.todolist.model;
 
-class Task {
+public class Task {
   private String name;
   private String description;
 
-  Task(String name, String description) {
+  public Task(String name, String description) {
     this.name = name;
     this.description = description;
   }
@@ -17,7 +17,7 @@ class Task {
     this.name = name;
   }
 
-  String getDescription() {
+  public String getDescription() {
     return description;
   }
 }

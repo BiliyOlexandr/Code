@@ -5,17 +5,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
+import com.example.todolist.model.TaskDB;
+
 import java.util.List;
 
 class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 
-  private List<Task> taskList;
+  private List<TaskDB> mTaskList;
   private MainActivity.OnTaskClickListener clickListener;
   private MainActivity.OnLongTaskClickListener clickLongListener;
 
-  MyAdapter(List<Task> taskList, MainActivity.OnTaskClickListener clickListener,
+  MyAdapter(List<TaskDB> taskList, MainActivity.OnTaskClickListener clickListener,
       MainActivity.OnLongTaskClickListener clickLongListener) {
-    this.taskList = taskList;
+    this.mTaskList = taskList;
     this.clickListener = clickListener;
     this.clickLongListener = clickLongListener;
   }
@@ -27,7 +30,7 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
   }
 
   public void onBindViewHolder(final ViewHolder holder, final int position) {
-    Task taskElement = taskList.get(position);
+    TaskDB taskElement = mTaskList.get(position);
     //Заполнение заданного представления данными
     holder.nameTask.setText(taskElement.getName());
     holder.descriptionTask.setText(taskElement.getDescription());
@@ -45,11 +48,19 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
       return true;
     });
   }
+  void clear(){
+    mTaskList.clear();
+  }
+
+  void addAll(List<TaskDB> taskList){
+    mTaskList = taskList;
+  }
 
   //Возвращает количество вариантов в наборе данных
   //Длина массива cursor равна количеству элементов данных в RecyclerView.
   @Override public int getItemCount() {
-    return taskList.size();
+
+    return mTaskList.size();
   }
 
   //Данные передаются адаптеру через конструктор.
