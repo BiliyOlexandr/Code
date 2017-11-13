@@ -10,6 +10,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+import com.example.todolist.model.ToDoListDataBaseHelper;
+import com.example.todolist.presentation.TaskListActivity;
 
 public class ChangeTaskActivity extends AppCompatActivity {
 
@@ -33,7 +35,7 @@ public class ChangeTaskActivity extends AppCompatActivity {
 
     try {
       // Getting position to the task of intent.
-      taskNo = getIntent().getExtras().getString(MainActivity.CHANGE_EXTRA_TASKNO);
+      taskNo = getIntent().getExtras().getString(TaskListActivity.CHANGE_EXTRA_TASKNO);
       cursor = db.query(ToDoListDataBaseHelper.TABLE_NAME,
           new String[] { ToDoListDataBaseHelper.NAME, ToDoListDataBaseHelper.DISCRIPTION },
           "NAME = ?", new String[] { taskNo }, null, null, null);

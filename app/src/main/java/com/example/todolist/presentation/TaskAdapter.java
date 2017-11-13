@@ -1,4 +1,4 @@
-package com.example.todolist;
+package com.example.todolist.presentation;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -6,25 +6,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.todolist.R;
 import com.example.todolist.model.TaskDB;
 
 import java.util.List;
 
-class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+class TaskAdapter extends RecyclerView.Adapter<TaskAdapter.ViewHolder> {
 
   private List<TaskDB> mTaskList;
-  private MainActivity.OnTaskClickListener clickListener;
-  private MainActivity.OnLongTaskClickListener clickLongListener;
+  private TaskListActivity.OnTaskClickListener clickListener;
+  private TaskListActivity.OnLongTaskClickListener clickLongListener;
 
-  MyAdapter(List<TaskDB> taskList, MainActivity.OnTaskClickListener clickListener,
-      MainActivity.OnLongTaskClickListener clickLongListener) {
+  TaskAdapter(List<TaskDB> taskList, TaskListActivity.OnTaskClickListener clickListener,
+      TaskListActivity.OnLongTaskClickListener clickLongListener) {
     this.mTaskList = taskList;
     this.clickListener = clickListener;
     this.clickLongListener = clickLongListener;
   }
 
   //Создание нового представления
-  @Override public MyAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+  @Override public TaskAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_task, parent, false);
     return new ViewHolder(view);
   }

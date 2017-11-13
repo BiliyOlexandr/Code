@@ -1,19 +1,27 @@
-package com.example.todolist;
+package com.example.todolist.presentation;
 
+import android.arch.lifecycle.MutableLiveData;
+import android.arch.lifecycle.ViewModelProviders;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import com.example.todolist.R;
+import com.example.todolist.model.TaskDB;
+import com.example.todolist.model.ToDoListDataBaseHelper;
 
 public class OneTaskActivity extends AppCompatActivity {
 
   private SQLiteDatabase db;
   private EditText textName;
   private EditText textDiscription;
+  private TaskDB mTask;
+  private OneTaskViewModel mViewModel;
 
   @Override protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -33,9 +41,11 @@ public class OneTaskActivity extends AppCompatActivity {
     SQLiteOpenHelper toDoListDataBaseHelper = new ToDoListDataBaseHelper(OneTaskActivity.this);
     db = toDoListDataBaseHelper.getWritableDatabase();
 
-    okButton.setOnClickListener(view -> {
-      ToDoListDataBaseHelper.insertTask(db, textName.getText().toString(),
-          textDiscription.getText().toString());
+    okButton.setOnClickListener((View view) -> {
+      //ToDoListDataBaseHelper.insertTask(db, textName.getText().toString(),
+          //textDiscription.getText().toString());
+
+
       finish();
     });
 

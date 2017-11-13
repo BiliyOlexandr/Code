@@ -10,7 +10,7 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:paddingTop="16dp"
-    tools:context="com.example.todolist.MainActivity">
+    tools:context="com.example.todolist.presentation.TaskListActivity">
   <ListView
       android:id="@+id/listView"
       android:layout_width="match_parent"
