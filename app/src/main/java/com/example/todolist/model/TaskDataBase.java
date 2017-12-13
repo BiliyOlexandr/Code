@@ -4,7 +4,7 @@ import android.arch.persistence.room.Database;
 import android.arch.persistence.room.RoomDatabase;
 
 /**
- * Test commit after reset command
+ *
  * Created by alex on 11/9/17.
  */
 
